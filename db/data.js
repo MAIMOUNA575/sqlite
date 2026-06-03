@@ -1,33 +1,23 @@
-import Database from 'better-sqlite3'
+import Database from 'better-sqlite3';
 
-const db = new Database('data.db')
 
-const Matabble2 = `
-    CREATE TABLE students (
+
+
+const db = new Database('data.db');
+const Matable2 = `
+    CREATE TABLE IF NOT EXISTS students (
         id INTEGER PRIMARY KEY,
-        matricule TEXT,
-        nom TEXT,
-        prenom TEXT,
-        age INTEGER,
-        classe TEXT
+        matricule TEXT NOT NULL UNIQUE,
+        nom TEXT NOT NULL,
+        prenom TEXT NOT NULL,
+        age INTEGER NOT NULL,
+        classe TEXT NOT NULL
     )
 `;
-
-
-db.exec(Matabble2)
-
-
-
-const execution2 = db.prepare(`INSERT INTO students(matricule, nom, prenom, age, classe) VALUES (?, ?, ?, ?, ?)`)
-
-
-
-execution2.run('15037' ,'Campbell', 'docteur', '12', 'TleA')
-
-
-const rows = db.prepare('SELECT * FROM students').all();
-
-console.log(rows);
+db.exec(Matable2);
+const execution2 = db.prepare(`INSERT INTO students(matricule, nom, prenom, age, classe)VALUES (?, ?, ?, ?, ?)`);
+execution2.run('15037', 'Campbell', 'docteur', 12, 'TleC');
+execution2.run('49023', 'Coulibaly', 'Mouna', 16, 'TleA');
 
 
 
@@ -35,20 +25,16 @@ console.log(rows);
 
 
 
-
-
-
-
-const db = new Database('app.db')
-
-
-const Matabble1 =`
-    CREATE TABLE user (
-        id INTERGER PRIMARY KEY,
-        name STRING NOT NULL,
-        role STRING NOT NULL,
+const Matabble1 = `
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        role TEXT NOT NULL
     )
 `;
+db.exec(Matabble1);
+const execution1 = db.prepare(`INSERT INTO users (name, role) VALUES (?, ?)`);
+execution1.run('Mouna', 'Etudiante');
 
 
 
@@ -57,6 +43,33 @@ const Matabble1 =`
 
 
 
+const Matabble3 =`
+    CREATE TABLE IF NOT EXISTS teachers (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        matiere TEXT NOT NULL
+    )
+`;
+db.exec(Matabble3);
+const execution3 =db.prepare(`INSERT INTO teachers(name, matiere) VALUES (?, ?)`);
+execution3.run('Regis', 'Maths');
+
+
+
+
+
+
+
+const Matabble4 = `
+    CREATE TABLE IF NOT EXISTS subjets(
+        id INTEGER PRIMARY KEY, 
+        nom TEXT NOT NULL,
+        teacher_id TEXT NULL UNIQUE
+    )
+`;
+db.exec(Matabble4);
+const execution4 = db.prepare(`INSERT INTO subjets (nom, teacher_id) VALUES (?, ?)`);
+execution4.run('Mouna', 'idTEACH');
 
 
 
@@ -65,80 +78,15 @@ const Matabble1 =`
 
 
 
+const Matabble5 = `
+    CREATE TABLE IF NOT EXISTS absences(
+        id INTEGER PRIMARY KEY,
+        student_id INTEGER NOT NULL UNIQUE,
+        date INTEGER NOT NULL,
+        status TEXT NOT NULL
+    )
+`;
+db.exec(Matabble5);
+const execution5 = db.prepare(`INSERT INTO absences (student_id, date, status) VALUES (?, ?, ?)`);
+execution5.run(4, 12, 'Etudiant');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import Database from 'better-sqlite3'
-
-// const db = new Database('app.db')
-
-// const Matabble1 =`
-//     CREATE TABLE user (
-//         id INTERGER PRIMARY KEY,
-//         name STRING NOT NULL,
-//         role STRING NOT NULL,
-//     )
-// `;
-// const Matabble2 =`
-//     CREATE TABLE students (
-//         id INTERGER PRIMARY KEY,
-//         matricule STRING NOT NULL,
-//         nom STRING NOT NULL,
-//         prenom STRING NOT NULL,
-//         age STRING NOT NULL,
-//         classe STRING NOT NULL,
-//     )
-// `;
-// const Matabble3 =`
-//     CREATE TABLE teachers (
-//         id INTERGER PRIMARY KEY,
-//         name STRING NOT NULL,
-//         matiere STRING NOT NULL,
-//     )
-// `;
-
-// db.exec(Matabble1)
-// db.exec(Matabble2)
-// db.exec(Matabble3)
-
-
-// const execution1 =db.prepare(`INSERT INTO users(name, role) VALUE (?, ?, ?)`)
-
-// const execution2 =db.prepare(`INSERT INTO students(matricule, name, prenom, age, classe) VALUE (?, ?, ?, ?, ?, ?)`)
-
-// const execution3 =db.prepare(`INSERT INTO teachers(name, matiere) VALUE (?, ?, ?)`)
-
-
-// execution1.run('Mouna', 'Etudiante')
-
-// execution2.run('15037' ,'Campbell', 'docteur', '12', 'TleA')
-
-// execution3.run('Regis', 'Maths')
-
-// const rows = db.prepare('SELECT ')
