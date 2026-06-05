@@ -64,7 +64,8 @@ const Matabble4 = `
     CREATE TABLE IF NOT EXISTS subjets(
         id INTEGER PRIMARY KEY, 
         nom TEXT NOT NULL,
-        teacher_id INTEGER NULL
+        teacher_id INTEGER,
+        FOREIGN KEY (teacher_id) REFERENCES teachers(id)
     )
 `;
 db.exec(Matabble4);
@@ -82,11 +83,10 @@ const Matabble5 = `
     CREATE TABLE IF NOT EXISTS absences(
         id INTEGER PRIMARY KEY,
         student_id INTEGER NOT NULL UNIQUE,
-        date INTEGER NOT NULL,
+        date TEXT NOT NULL,
         status TEXT NOT NULL
     )
 `;
 db.exec(Matabble5);
 const execution5 = db.prepare(`INSERT INTO absences (student_id, date, status) VALUES (?, ?, ?)`);
-execution5.run(4, 12, 'Etudiant');
-
+execution5.run(4, '2023-10-10', 'Etudiant');
