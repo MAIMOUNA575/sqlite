@@ -6,7 +6,7 @@ import Database from 'better-sqlite3';
 const db = new Database('data.db');
 const Matable2 = `
     CREATE TABLE IF NOT EXISTS students (
-        id INTEGER PRIMARY KEY,
+        id INTEGER PRIMARY KEY ,
         matricule TEXT NOT NULL UNIQUE,
         nom TEXT NOT NULL,
         prenom TEXT NOT NULL,
@@ -64,7 +64,7 @@ const Matabble4 = `
     CREATE TABLE IF NOT EXISTS subjets(
         id INTEGER PRIMARY KEY, 
         nom TEXT NOT NULL,
-        teacher_id TEXT NULL UNIQUE
+        teacher_id INTEGER NULL
     )
 `;
 db.exec(Matabble4);
