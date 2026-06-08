@@ -1,5 +1,3 @@
-
-
 class Users {
     constructor(nom, role){
         this.nom=nom;
@@ -8,4 +6,3 @@ class Users {
 }
 
 export default Users
-

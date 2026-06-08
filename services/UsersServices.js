@@ -8,17 +8,23 @@ function addUser(name, role) {
     .run(name, role);
 }
 
-
-// modifier un utilisateurs
-function updateUser(name, role) {
-    db.prepare(`UPDATE users SET role = ? WHERE name = ?`)
-    .run(role, name);
-}
-
-
 // supprimer un utilisateurs
-function deleteUser(name) {
-    db.prepare(`DELETE FROM users WHERE name = ?`)
-    .run(name);
+function deleteUser(id) {
+    db.prepare(`DELETE FROM users WHERE id=?`)
+    .run(id);
 }
-export{addUser, updateUser, deleteUser};
+
+// Lister un utilisateur
+function listerUser(id){
+    db.prepare(`SELECT FROM users id = ?`).get(id)
+    .run(id)
+}
+
+
+
+// Selectionner toutes la liste des utilisateurs
+function listerUser(users){
+    db.prepare(`SELECT FROM users = ?`).all()
+}
+
+export{addUser, deleteUser, listerUser};
