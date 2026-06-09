@@ -18,9 +18,22 @@ function updateStudent(matricule, nom, prenom, age, classe) {
 
 
 // supprimer un etudiant
-function deleteStudent(matricule) {
-    db.prepare(`DELETE FROM students WHERE matricule = ?`)
-    .run(matricule);
+function deleteStudent(id) {
+    db.prepare(`DELETE FROM students WHERE id = ?`)
+    .run(id);
 }  
 
-export {addStudent, updateStudent, deleteStudent};
+
+// rechercher un etudiant
+function rechercheStudent(matricule) {
+    return db.prepare(`SELECT * FROM students WHERE matricule = ?`)
+    .get(matricule);
+}
+
+
+// lister tous les etudiants
+function listerStudent() {
+    return db.prepare(`SELECT * FROM students`).all();
+}
+
+export {addStudent, updateStudent, deleteStudent, rechercheStudent,listerStudent};

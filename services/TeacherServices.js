@@ -9,9 +9,9 @@ function addTeacher(name, matiere) {
 
 
 // modifier un professeurs
-function updateTeacher(name, matiere) {
-    db.prepare(`UPDATE teachers SET matiere = ? WHERE name = ?`)
-    .run(matiere, name);
+function updateTeacher(matiere, name ,id) {
+    db.prepare(`UPDATE teachers SET matiere = ?, name = ? WHERE id = ?`)
+    .run(matiere, name, id);
 }
 
 
@@ -19,4 +19,10 @@ function updateTeacher(name, matiere) {
 function deleteTeacher(name) {
     db.prepare(`DELETE FROM teachers WHERE name = ?`).run(name);
 }
-export{addTeacher, updateTeacher, deleteTeacher};
+
+
+// rechercher un professeur
+function rechercheTeacher(id){
+    return db.prepare(`SELECT * FROM teachers WHERE id = ?`).get(id)
+}
+export{addTeacher, updateTeacher, deleteTeacher, rechercheTeacher};

@@ -16,15 +16,13 @@ function deleteUser(id) {
 
 // Lister un utilisateur
 function listerUser(id){
-    db.prepare(`SELECT FROM users id = ?`).get(id)
-    .run(id)
+    return db.prepare(`SELECT * FROM users WHERE id = ?`).get(id);
 }
-
-
 
 // Selectionner toutes la liste des utilisateurs
-function listerUser(users){
-    db.prepare(`SELECT FROM users = ?`).all()
+function SelectionUser(users){
+    return db.prepare(`SELECT * FROM users`).all();
 }
+
 
 export{addUser, deleteUser, listerUser};
